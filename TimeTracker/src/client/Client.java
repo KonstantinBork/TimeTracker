@@ -32,6 +32,8 @@ public class Client {
 			toServerWriter.write("time");
 			toServerWriter.flush();
 			run(toServerWriter, fromServerReader);
+			toServerWriter.close();
+			fromServerReader.close();
 			socket.close();
 		} catch (IOException e) {
 			
@@ -65,6 +67,9 @@ public class Client {
 					if(input.equals("0") || input.equals("1")) {
 						writer.write(input);
 						writer.flush();
+						l = reader.read(buffer);
+						text = String.valueOf(buffer).substring(0, l);
+						System.out.println(text);
 						openConnection = false;
 					}
 					else {
@@ -74,11 +79,15 @@ public class Client {
 			}
 			scanner.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
+	/**
+	 * Encodes a given string with SHA-512.
+	 * @param toEncode
+	 * @return
+	 */
 	private String encode(String toEncode) {
 		MessageDigest digest;
 		try {
