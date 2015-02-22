@@ -64,7 +64,7 @@ public class Client {
 				}
 				else {
 					input = scanner.nextLine();
-					if(input.equals("0") || input.equals("1")) {
+					if(input.equals("0") || input.equals("1") || input.equals("2") || input.equals("3")) {
 						writer.write(input);
 						writer.flush();
 						l = reader.read(buffer);
@@ -73,7 +73,7 @@ public class Client {
 						openConnection = false;
 					}
 					else {
-						System.out.println("Please write 0 or 1");
+						System.out.println("Please write 0, 1, 2 or 3");
 					}
 				}
 			}
