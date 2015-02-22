@@ -43,15 +43,18 @@ public class Client {
 			boolean openConnection = true;
 			Scanner scanner = new Scanner(System.in);
 			String input = "";
+			String text;
 			while(openConnection) {
-				reader.read(buffer);
-				if(String.valueOf(buffer) == "Please send your username") {
+				int l = reader.read(buffer);
+				text = String.valueOf(buffer).substring(0, l);
+				System.out.println(text);
+				if(text.equals("Please send your username")) {
 					input = scanner.nextLine();
 					input = encode(input);
 					writer.write(input);
 					writer.flush();
 				}
-				else if(String.valueOf(buffer) == "Please send your password") {
+				else if(text.equals("Please send your password")) {
 					input = scanner.nextLine();
 					input = encode(input);
 					writer.write(input);
@@ -59,7 +62,7 @@ public class Client {
 				}
 				else {
 					input = scanner.nextLine();
-					if(input == "0" || input == "1") {
+					if(input.equals("0") || input.equals("1")) {
 						writer.write(input);
 						writer.flush();
 						openConnection = false;
