@@ -1,5 +1,8 @@
 package client;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -12,14 +15,28 @@ import java.util.Scanner;
 
 public class Client {
 	
-	private static final String URL = "flakenerd.no-ip.info";
+	private String URL;
 	private int port;
 	
 	private char[] buffer;
 	
-	public Client(int port) {
-		this.port = port;
+	public Client() {
 		buffer = new char[1024];
+		initializeClient();
+	}
+	
+	private void initializeClient() {
+		File file = new File("timetracker.config");
+		try {
+		 	FileInputStream in = new FileInputStream(file);
+		 	byte[] fileBuffer = new byte[1024];
+		 	in.read(fileBuffer);
+		 	String[] components = new String(fileBuffer).split("\n");
+		 	URL = components[0].replace("url:", "");
+		 	port = Integer.parseInt(components[1].replace("port", ""));
+		} catch (IOException e) {
+			System.err.println("Error at initializing client: OPEN CONFIG FILE");
+		}
 	}
 	
 	public void connect() {
