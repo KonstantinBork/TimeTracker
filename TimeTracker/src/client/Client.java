@@ -33,7 +33,7 @@ public class Client {
 		 	in.read(fileBuffer);
 		 	String[] components = new String(fileBuffer).split("\n");
 		 	URL = components[0].replace("url:", "");
-		 	port = Integer.parseInt(components[1].replace("port", ""));
+		 	port = Integer.parseInt(components[1].replace("port:", ""));
 		} catch (IOException e) {
 			System.err.println("Error at initializing client: OPEN CONFIG FILE");
 		}
